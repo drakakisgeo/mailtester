@@ -1,8 +1,8 @@
 <?php
 
-
 namespace Drakakisgeo\Mailtester;
 
+use GuzzleHttp\Client;
 
 trait MailtesterHelper
 {
@@ -16,6 +16,22 @@ trait MailtesterHelper
         $this->initCatcher();
     }
 
+    /**
+     * Init client and clean the messages
+     */
+    public function initCatcher()
+    {
+        $this->mailcatcher = new Client(config('mailtester.url'));
+        $this->cleanMessages();
+    }
+
+    /**
+     * Clear the list from all emails
+     */
+    public function cleanMessages()
+    {
+        $this->mailcatcher->delete('/messages')->send();
+    }
 
     /**
      * Get the last message
@@ -49,91 +65,98 @@ trait MailtesterHelper
 
     /**
      * Assert that Email's subject contains a string
-     * @param $needle
-     * @param $email
+     *
+     * @param        $needle
+     * @param        $email
      * @param string $description
      */
-    public function assertEmailSubjectContains($needle, $email, $description = '')
-    {
+    public function assertEmailSubjectContains(
+      $needle,
+      $email,
+      $description = ''
+    ) {
         $this->assertContains($needle, $email->subject, $description);
     }
 
     /**
      * Assert that Email's subject is equal to a string
-     * @param $expected
-     * @param $email
+     *
+     * @param        $expected
+     * @param        $email
      * @param string $description
      */
-    public function assertEmailSubjectEquals($expected, $email, $description = '')
-    {
+    public function assertEmailSubjectEquals(
+      $expected,
+      $email,
+      $description = ''
+    ) {
         $this->assertContains($expected, $email->subject, $description);
     }
 
     /**
      * Assert HTML body of Email contains a certain text
-     * @param $needle
-     * @param $email
+     *
+     * @param        $needle
+     * @param        $email
      * @param string $description
      */
     public function assertEmailHtmlContains($needle, $email, $description = '')
     {
-        $response = $this->mailcatcher->get("/messages/{$email->id}.html")->send();
-        $this->assertContains($needle, (string)$response->getBody(), $description);
+        $response = $this->mailcatcher->get("/messages/{$email->id}.html")
+          ->send();
+        $this->assertContains($needle, (string)$response->getBody(),
+          $description);
     }
 
     /**
      * Assert Text body of Email contains a certain text
-     * @param $needle
-     * @param $email
+     *
+     * @param        $needle
+     * @param        $email
      * @param string $description
      */
     public function assertEmailTextContains($needle, $email, $description = '')
     {
-        $response = $this->mailcatcher->get("/messages/{$email->id}.plain")->send();
-        $this->assertContains($needle, (string)$response->getBody(), $description);
+        $response = $this->mailcatcher->get("/messages/{$email->id}.plain")
+          ->send();
+        $this->assertContains($needle, (string)$response->getBody(),
+          $description);
     }
 
     /**
      * Assert that the sender is equal to a string
-     * @param $expected
-     * @param $email
+     *
+     * @param        $expected
+     * @param        $email
      * @param string $description
      */
-    public function assertEmailSenderEquals($expected, $email, $description = '')
-    {
-        $response = $this->mailcatcher->get("/messages/{$email->id}.json")->send();
+    public function assertEmailSenderEquals(
+      $expected,
+      $email,
+      $description = ''
+    ) {
+        $response = $this->mailcatcher->get("/messages/{$email->id}.json")
+          ->send();
         $email = json_decode($response->getBody());
         $this->assertEquals($expected, $email->sender, $description);
     }
 
     /**
      * Assert that the recipients list contains a certain one
-     * @param $needle
-     * @param $email
+     *
+     * @param        $needle
+     * @param        $email
      * @param string $description
      */
-    public function assertEmailRecipientsContain($needle, $email, $description = '')
-    {
-        $response = $this->mailcatcher->get("/messages/{$email->id}.json")->send();
+    public function assertEmailRecipientsContain(
+      $needle,
+      $email,
+      $description = ''
+    ) {
+        $response = $this->mailcatcher->get("/messages/{$email->id}.json")
+          ->send();
         $email = json_decode($response->getBody());
         $this->assertContains($needle, $email->recipients, $description);
-    }
-
-    /**
-     * Clear the list from all emails
-     */
-    public function cleanMessages()
-    {
-        $this->mailcatcher->delete('/messages')->send();
-    }
-
-    /**
-     * Init client and clean the messages
-     */
-    public function initCatcher()
-    {
-        $this->mailcatcher = new \Guzzle\Http\Client('http://192.168.115.27:1080');
-        $this->cleanMessages();
     }
 
 

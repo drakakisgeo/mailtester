@@ -27,14 +27,15 @@ class MailtesterServiceProvider extends ServiceProvider
      */
     protected function setupConfig(Container $app)
     {
-        $source = realpath(__DIR__ . '/../config/mailtester.php');
-        $this->publishes([$source => config_path('mailtester.php')]);
-        $this->mergeConfigFrom($source, 'mailtester');
+        $configPath = __DIR__ . '/../config/mailtester.php';
+        $this->publishes([$configPath => config_path('mailtester.php')]);
+        $this->mergeConfigFrom($configPath, 'mailtester');
     }
 
     public function register()
     {
-
+        $configPath = __DIR__ . '/../config/mailtester.php';
+        $this->mergeConfigFrom($configPath, 'mailtester');
     }
 
 }

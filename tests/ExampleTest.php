@@ -2,13 +2,15 @@
 
 namespace League\Skeleton;
 
+use Drakakisgeo\Mailtester\MailtesterHelper;
+
 class ExampleTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * Test that true does in fact equal true
-     */
-    public function testTrueIsTrue()
+    use MailtesterHelper;
+
+    /** @test */
+    public function MailHelper()
     {
-        $this->assertTrue(true);
+        $this->assertEmailIsSent('test');
     }
 }
