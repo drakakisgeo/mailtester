@@ -24,12 +24,12 @@
     },
     "autoload": {
         "psr-4": {
-            "drakakisgeo\\mailtester\\": "src"
+            "Drakakisgeo\\Mailtester\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "drakakisgeo\\mailtester\\": "tests"
+            "Drakakisgeo\\Mailtester\\": "tests"
         }
     },
     "scripts": {
