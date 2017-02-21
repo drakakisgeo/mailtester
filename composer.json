@@ -19,6 +19,7 @@
         "php" : "~5.6|~7.0",
         "illuminate/contracts": "^5.0",
         "illuminate/support": "^5.0",
+        "swiftmailer/swiftmailer": "^5.0",
         "guzzlehttp/guzzle": "~6.0"
     },
     "require-dev": {
