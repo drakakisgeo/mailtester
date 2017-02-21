@@ -4,7 +4,7 @@ namespace Drakakisgeo\Mailtester;
 
 use GuzzleHttp\Client;
 
-trait MailtesterHelper
+trait InteractsWithMailCatcher
 {
 
     /**
@@ -21,7 +21,7 @@ trait MailtesterHelper
      */
     public function initCatcher()
     {
-        $this->mailcatcher = new Client(config('mailtester.url'));
+        $this->mailcatcher = new Client(['base_uri' => config('mailtester.url')]);
         $this->cleanMessages();
     }
 
@@ -30,7 +30,7 @@ trait MailtesterHelper
      */
     public function cleanMessages()
     {
-        $this->mailcatcher->delete('/messages')->send();
+        $this->mailcatcher->delete('/messages');
     }
 
     /**
@@ -51,7 +51,7 @@ trait MailtesterHelper
      */
     public function getMessages()
     {
-        $jsonResponse = $this->mailcatcher->get('/messages')->send();
+        $jsonResponse = $this->mailcatcher->get('/messages');
         return json_decode($jsonResponse->getBody());
     }
 
@@ -71,9 +71,9 @@ trait MailtesterHelper
      * @param string $description
      */
     public function assertEmailSubjectContains(
-      $needle,
-      $email,
-      $description = ''
+        $needle,
+        $email,
+        $description = ''
     ) {
         $this->assertContains($needle, $email->subject, $description);
     }
@@ -86,9 +86,9 @@ trait MailtesterHelper
      * @param string $description
      */
     public function assertEmailSubjectEquals(
-      $expected,
-      $email,
-      $description = ''
+        $expected,
+        $email,
+        $description = ''
     ) {
         $this->assertContains($expected, $email->subject, $description);
     }
@@ -102,10 +102,9 @@ trait MailtesterHelper
      */
     public function assertEmailHtmlContains($needle, $email, $description = '')
     {
-        $response = $this->mailcatcher->get("/messages/{$email->id}.html")
-          ->send();
+        $response = $this->mailcatcher->get("/messages/{$email->id}.html");
         $this->assertContains($needle, (string)$response->getBody(),
-          $description);
+            $description);
     }
 
     /**
@@ -117,10 +116,9 @@ trait MailtesterHelper
      */
     public function assertEmailTextContains($needle, $email, $description = '')
     {
-        $response = $this->mailcatcher->get("/messages/{$email->id}.plain")
-          ->send();
+        $response = $this->mailcatcher->get("/messages/{$email->id}.plain");
         $this->assertContains($needle, (string)$response->getBody(),
-          $description);
+            $description);
     }
 
     /**
@@ -131,12 +129,11 @@ trait MailtesterHelper
      * @param string $description
      */
     public function assertEmailSenderEquals(
-      $expected,
-      $email,
-      $description = ''
+        $expected,
+        $email,
+        $description = ''
     ) {
-        $response = $this->mailcatcher->get("/messages/{$email->id}.json")
-          ->send();
+        $response = $this->mailcatcher->get("/messages/{$email->id}.json");
         $email = json_decode($response->getBody());
         $this->assertEquals($expected, $email->sender, $description);
     }
@@ -149,15 +146,12 @@ trait MailtesterHelper
      * @param string $description
      */
     public function assertEmailRecipientsContain(
-      $needle,
-      $email,
-      $description = ''
+        $needle,
+        $email,
+        $description = ''
     ) {
-        $response = $this->mailcatcher->get("/messages/{$email->id}.json")
-          ->send();
+        $response = $this->mailcatcher->get("/messages/{$email->id}.json");
         $email = json_decode($response->getBody());
         $this->assertContains($needle, $email->recipients, $description);
     }
-
-
 }

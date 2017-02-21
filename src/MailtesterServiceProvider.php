@@ -2,7 +2,6 @@
 
 namespace Drakakisgeo\Mailtester;
 
-
 use Illuminate\Support\ServiceProvider;
 
 class MailtesterServiceProvider extends ServiceProvider
@@ -26,5 +25,4 @@ class MailtesterServiceProvider extends ServiceProvider
         $configPath = __DIR__ . '/../config/mailtester.php';
         $this->mergeConfigFrom($configPath, 'mailtester');
     }
-
 }
