@@ -2,13 +2,12 @@ language: php
 php:
   - '5.6'
   - '7.0'
+before_install:
+rvm install 1.9.2
 install:
   - composer install --no-interaction --prefer-source
 before_script:
   - sudo apt-get update
-  - sudo gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 \curl -sSL https://get.rvm.io | bash -s stable --rails
-  - sudo source ~/.rvm/scripts/rvm
-  - rvm install ruby1.9.2
   - sudo gem install mime-types --version "< 3"
   - sudo gem install --conservative mailcatcher
   - sudo mailcatcher --foreground --http-ip=0.0.0.0
