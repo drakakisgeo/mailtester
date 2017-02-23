@@ -480,6 +480,7 @@ trait InteractsWithMailCatcher
      * Abstract methods from PhpUnit
      */
     abstract public function assertContains($needle, $haystack, $message = '', $ignoreCase = false, $checkForObjectIdentity = true, $checkForNonObjectIdentity = false);
+    abstract public function assertEquals($expected, $actual, $message = '', $delta = 0, $maxDepth = 10, $canonicalize = false, $ignoreCase = false);
     abstract public function fail($message = '');
     abstract public function assertNotEmpty($actual, $message = '');
 }
