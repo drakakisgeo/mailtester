@@ -11,6 +11,7 @@ class MailCatcherTest extends TestCase
     /** @test */
     public function EmailFoundInInbox()
     {
-        $this->assertTrue(true);
+        $this->buildMailMessage(['body'=>'testmeup!'])->sendMail();
+        $this->assertEmailIsSent('Email was send');
     }
 }

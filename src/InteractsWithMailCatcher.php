@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 
 trait InteractsWithMailCatcher
 {
+    use InteractsWithSwiftEmailer;
 
     /**
      * Init setup
