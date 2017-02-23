@@ -6,7 +6,7 @@ install:
   - composer install --no-interaction --prefer-source
 before_script:
   - sudo apt-get update
-  - sudo apt-get install -y libsqlite3-dev ruby
+  - sudo apt-get install -y libsqlite3-dev ruby-full
   - sudo apt-get install rubygems
   - sudo gem install mime-types -v 2.6.2
   - sudo gem install mailcatcher
