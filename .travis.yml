@@ -6,8 +6,9 @@ install:
   - composer install --no-interaction --prefer-source
 before_script:
   - sudo apt-get update
-  - sudo apt-get install -y build-essential software-properties-common
-  - sudo apt-get install -y libsqlite3-dev ruby1.9.1-dev
+  - sudo gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 \curl -sSL https://get.rvm.io | bash -s stable --rails
+  - sudo source ~/.rvm/scripts/rvm
+  - rvm install ruby1.9.2
   - sudo gem install mime-types --version "< 3"
   - sudo gem install --conservative mailcatcher
   - sudo mailcatcher --foreground --http-ip=0.0.0.0
