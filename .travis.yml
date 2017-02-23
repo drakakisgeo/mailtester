@@ -1,6 +1,5 @@
 language: php
 php:
-  - '5.6'
   - '7.0'
 before_install:
 rvm install 1.9.2
@@ -8,6 +7,7 @@ install:
   - composer install --no-interaction --prefer-source
 before_script:
   - sudo apt-get update
+  - which -a ruby
   - sudo gem install mime-types --version "< 3"
   - sudo gem install --conservative mailcatcher
   - sudo mailcatcher --foreground --http-ip=0.0.0.0
