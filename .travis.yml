@@ -6,8 +6,7 @@ before_install:
 install:
   - composer install --no-interaction --prefer-source
 before_script:
-  - which -a ruby
   - gem install mime-types --version "< 3"
   - gem install --conservative mailcatcher
-  - mailcatcher --foreground --http-ip=0.0.0.0
+  - mailcatcher --http-ip=0.0.0.0
 script: vendor/bin/phpunit
