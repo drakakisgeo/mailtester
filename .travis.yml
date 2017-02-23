@@ -7,6 +7,7 @@ install:
 before_script:
   - sudo apt-get update
   - sudo apt-get install -y libsqlite3-dev ruby
+  - sudo apt-get install rubygems
   - sudo gem install mailcatcher
   - mailcatcher --foreground --http-ip=0.0.0.0
   - export MAIL_PORT=1025
