@@ -6,7 +6,9 @@ install:
   - composer install --no-interaction --prefer-source
 before_script:
   - sudo apt-get update
-  - sudo apt-get install -y libsqlite3-dev ruby1.9.1-dev
+  - sudo apt-get install -y libsqlite3-dev ruby
   - sudo gem install mailcatcher
   - mailcatcher --foreground --http-ip=0.0.0.0
+  - export MAIL_PORT=1025
+  - export MAIL_HOST=localhost
 script: vendor/bin/phpunit
