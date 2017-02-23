@@ -3,7 +3,6 @@
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
 [![Build Status][ico-travis]][link-travis]
-[![Coverage Status][ico-scrutinizer]][link-scrutinizer]
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
@@ -36,10 +35,58 @@ $ php artisan vendor:publish --provider="Drakakisgeo\Mailtester\MailtesterServic
 
 Include the **InteractsWithMailCatcher** Trait in your test and make sure that your test extends the Laravel's Testcase class. Immediately you have access to the following methods:
 
-* cleanMessages()
-* getLastMessage()
+#### Email was send
 * assertEmailIsSent()
-* ...
+
+#### Email subject contains a $string
+* assertEmailFirstSubjectContains()
+* assertEmailLastSubjectContains()
+* assertEmailNthSubjectContains()
+
+#### Email subject equals a $string
+* assertEmailFirstSubjectEquals()
+* assertEmailLastSubjectEquals()
+* assertEmailNthSubjectEquals()
+* assertEmailSubjectEquals()
+
+#### Email Html body contains a $string
+* assertEmailFirstHtmlContains()
+* assertEmailLastHtmlContains()
+* assertEmailNthHtmlContains()
+* assertEmailHtmlContains()
+
+#### Email Text body contains a $string
+* assertEmailFirstTextContains()
+* assertEmailLastTextContains()
+* assertEmailNthTextContains()
+* assertEmailTextContains()
+
+#### Email sender is the target $email
+* assertEmailFirstSenderEquals()
+* assertEmailLastSenderEquals()
+* assertEmailNthSenderEquals()
+* assertEmailSenderEquals()
+
+#### Email recipient is the target $email
+* assertEmailFirstRecipientsContain()
+* assertEmailLastRecipientsContain()
+* assertEmailNthRecipientsContain()
+* assertEmailRecipientsContain()
+
+#### Email Cc is the target $email
+* assertEmailFirstCcContain()
+* assertEmailLastCcContain()
+* assertEmailNthCcContain()
+* assertEmailCcContain()
+
+#### Email Bcc is the target $email
+* assertEmailFirstBccContain()
+* assertEmailLastBccContain()
+* assertEmailNthtBccContain()
+* assertEmailBccContain()
+
+#### Email Attachment is the target $file
+* Soon!
 
 
 ## Contributing

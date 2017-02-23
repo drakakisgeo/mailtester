@@ -39,10 +39,19 @@ trait InteractsWithSwiftEmailer
         if (!array_key_exists('to', $option)) {
             $option['to'] = ['totest@test.gr' => 'ToTester'];
         }
-
         if (!array_key_exists('subject', $option)) {
             $option['subject'] = 'Testing Email';
         }
+        if (!array_key_exists('contentType', $option)) {
+            $option['contentType'] = 'text/html';
+        }
+        if (!array_key_exists('cc', $option)) {
+            $option['cc'] = [];
+        }
+        if (!array_key_exists('bcc', $option)) {
+            $option['bcc'] = [];
+        }
+
         // Make sure Body exists
         if (!array_key_exists('body', $option)) {
             throw new RuntimeException('You really need to set the body');
@@ -51,8 +60,11 @@ trait InteractsWithSwiftEmailer
         $this->emailMessage = Swift_Message::newInstance()
             ->setSubject($option['subject'])
             ->setFrom($option['from'])
+            ->setCc($option['cc'])
+            ->setBcc($option['bcc'])
             ->setTo($option['to'])
-            ->setBody($option['body']);
+            ->setBody($option['body'], $option['contentType']);
+
         return $this;
     }
 }
