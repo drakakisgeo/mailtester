@@ -473,4 +473,10 @@ trait InteractsWithMailCatcher
         $jsonResponse = $this->mailcatcher->get('/messages');
         return json_decode($jsonResponse->getBody());
     }
+
+    /**
+     * Abstract methods from PhpUnit
+     */
+    abstract public function assertContains($needle, $haystack, $message = '', $ignoreCase = false, $checkForObjectIdentity = true, $checkForNonObjectIdentity = false);
+    abstract public function fail($message = '');
 }
