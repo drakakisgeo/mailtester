@@ -7,8 +7,8 @@ install:
   - composer install --no-interaction --prefer-source
 before_script:
   - which -a ruby
-  - sudo apt-get update
-  - sudo gem install mime-types --version "< 3"
-  - sudo gem install --conservative mailcatcher
-  - sudo mailcatcher --foreground --http-ip=0.0.0.0
+  - apt-get update
+  - gem install mime-types --version "< 3"
+  - gem install --conservative mailcatcher
+  - mailcatcher --foreground --http-ip=0.0.0.0
 script: vendor/bin/phpunit
