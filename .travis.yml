@@ -5,10 +5,11 @@ php:
 install:
   - composer install --no-interaction --prefer-source
 before_script:
+  - sudo apt-add-repository ppa:brightbox/ruby-ng
   - sudo apt-get update
-  - sudo apt-get install -y libsqlite3-dev ruby-full
+  - sudo apt-get install -y libsqlite3-dev ruby2.2
+  - uby2.2 -v
   - sudo apt-get install rubygems
-  - sudo gem install mime-types -v 2.6.2
   - sudo gem install mailcatcher
   - sudo mailcatcher --foreground --http-ip=0.0.0.0
   - export MAIL_PORT=1025
