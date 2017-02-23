@@ -8,6 +8,8 @@ trait InteractsWithMailCatcher
 {
     use InteractsWithSwiftEmailer;
 
+    protected $mailcatcher;
+
     /**
      * Init setup
      */
@@ -479,4 +481,5 @@ trait InteractsWithMailCatcher
      */
     abstract public function assertContains($needle, $haystack, $message = '', $ignoreCase = false, $checkForObjectIdentity = true, $checkForNonObjectIdentity = false);
     abstract public function fail($message = '');
+    abstract public function assertNotEmpty($actual, $message = '');
 }
