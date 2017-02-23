@@ -5,13 +5,9 @@ php:
 install:
   - composer install --no-interaction --prefer-source
 before_script:
-  - sudo apt-add-repository ppa:brightbox/ruby-ng
   - sudo apt-get update
-  - sudo apt-get install -y libsqlite3-dev ruby2.2
-  - uby2.2 -v
-  - sudo apt-get install rubygems
+  - sudo apt-get install -y build-essential software-properties-common
+  - sudo apt-get install -y libsqlite3-dev ruby1.9.1-dev
   - sudo gem install mailcatcher
   - sudo mailcatcher --foreground --http-ip=0.0.0.0
-  - export MAIL_PORT=1025
-  - export MAIL_HOST=localhost
 script: vendor/bin/phpunit
