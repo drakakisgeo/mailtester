@@ -7,7 +7,6 @@ install:
   - composer install --no-interaction --prefer-source
 before_script:
   - which -a ruby
-  - apt-get update
   - gem install mime-types --version "< 3"
   - gem install --conservative mailcatcher
   - mailcatcher --foreground --http-ip=0.0.0.0
