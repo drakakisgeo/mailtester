@@ -11,7 +11,7 @@ A package to help with acceptance Email testing. The goal is to add usefull PHPu
 
 ## Install
 
-This package assumes that you've already installed Mailcatcher. You can check this [tutorial]('https://serversforhackers.com/setting-up-mailcatcher') on how to install it to your system.
+This package assumes that you've already installed Mailcatcher. You can check this [tutorial](https://serversforhackers.com/setting-up-mailcatcher) on how to install it to your system.
 
 ### Via Composer
 
