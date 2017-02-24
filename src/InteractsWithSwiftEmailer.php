@@ -29,42 +29,43 @@ trait InteractsWithSwiftEmailer
         $this->emailMessage = null;
     }
 
-    public function buildMailMessage(array $option)
+    public function buildMailMessage(array $options)
     {
-        // Set defaults
-        if (!array_key_exists('from', $option)) {
-            $option['from'] = ['fromtest@test.gr' => 'FromTester'];
-        }
-
-        if (!array_key_exists('to', $option)) {
-            $option['to'] = ['totest@test.gr' => 'ToTester'];
-        }
-        if (!array_key_exists('subject', $option)) {
-            $option['subject'] = 'Testing Email';
-        }
-        if (!array_key_exists('contentType', $option)) {
-            $option['contentType'] = 'text/html';
-        }
-        if (!array_key_exists('cc', $option)) {
-            $option['cc'] = [];
-        }
-        if (!array_key_exists('bcc', $option)) {
-            $option['bcc'] = [];
-        }
+        $options = $this->setDefaults($options);
 
         // Make sure Body exists
-        if (!array_key_exists('body', $option)) {
+        if (!array_key_exists('body', $options)) {
             throw new RuntimeException('You really need to set the body');
         }
 
         $this->emailMessage = Swift_Message::newInstance()
-            ->setSubject($option['subject'])
-            ->setFrom($option['from'])
-            ->setCc($option['cc'])
-            ->setBcc($option['bcc'])
-            ->setTo($option['to'])
-            ->setBody($option['body'], $option['contentType']);
+            ->setSubject($options['subject'])
+            ->setFrom($options['from'])
+            ->setCc($options['cc'])
+            ->setBcc($options['bcc'])
+            ->setTo($options['to'])
+            ->setBody($options['body'], $options['contentType']);
 
         return $this;
+    }
+
+    private function setDefaults($options)
+    {
+        $defaults = [
+            'from' => ['fromtest@test.gr' => 'FromTester'],
+            'to' => ['totest@test.gr' => 'ToTester'],
+            'subject' => 'Testing Email',
+            'contentType' => 'text/html',
+            'cc' => [],
+            'bcc' => []
+        ];
+
+        foreach ($defaults as $key=>$value) {
+            if (!array_key_exists($key, $options)) {
+                $options[$key] = $value;
+            }
+        }
+
+        return $options;
     }
 }
