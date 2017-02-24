@@ -1,14 +1,19 @@
-language: php
-php:
-  - '5.6'
-  - '7.0'
-before_install:
-rvm install 1.9.2
-install:
-  - composer install --no-interaction --prefer-source
-before_script:
-  - sudo apt-get update
-  - sudo gem install mime-types --version "< 3"
-  - sudo gem install --conservative mailcatcher
-  - sudo mailcatcher --foreground --http-ip=0.0.0.0
-script: vendor/bin/phpunit
+{
+  "language": "php",
+  "php": "7.0",
+  "before_install": [
+    "rvm install 1.9.3"
+  ],
+  "install": [
+    "composer install --no-interaction --prefer-source"
+  ],
+  "before_script": [
+    "gem install mime-types --version \"< 3\"",
+    "gem install --conservative mailcatcher",
+    "mailcatcher --http-ip=0.0.0.0"
+  ],
+  "script": "vendor/bin/phpunit",
+  "group": "stable",
+  "dist": "precise",
+  "os": "linux"
+}
