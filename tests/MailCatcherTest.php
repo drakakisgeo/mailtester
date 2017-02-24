@@ -2,7 +2,7 @@
 
 namespace Drakakisgeo\Mailtester;
 
-use Tests\TestCase;
+use Orchestra\Testbench\TestCase;
 
 class MailCatcherTest extends TestCase
 {
@@ -200,5 +200,18 @@ class MailCatcherTest extends TestCase
         $this->assertEmailFirstBccContain('testbcc1@test.gr');
         $this->assertEmailNthtBccContain('testbcc2@test.gr', 2);
         $this->assertEmailLastBccContain('testbcc3@test.gr');
+    }
+
+    /**
+     * Define environment setup.
+     *
+     * @param  \Illuminate\Foundation\Application  $app
+     * @return void
+     */
+    protected function getEnvironmentSetUp($app)
+    {
+        $app['config']->set('mailtester.url', 'http://localhost:1080');
+        putenv("MAIL_HOST=localhost");
+        putenv("MAIL_PORT=1025");
     }
 }
