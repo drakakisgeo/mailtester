@@ -1,6 +1,6 @@
 {
   "language": "php",
-  "php": "7.0",
+  "php": "7.1",
   "before_install": [
     "rvm install 1.9.3"
   ],
