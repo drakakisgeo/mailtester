@@ -13,7 +13,7 @@ trait InteractsWithMailCatcher
     /**
      * Init setup
      */
-    public function setUp()
+    public function setUp() :void
     {
         parent::setUp();
         $this->initCatcher();
