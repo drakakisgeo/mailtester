@@ -1,12 +1,10 @@
 <?php
 
-
 namespace Drakakisgeo\Mailtester;
 
 use RuntimeException;
 use Swift_Message;
 use Swift_Mailer;
-use Swift_Mime_MimePart;
 use Swift_SmtpTransport;
 
 trait InteractsWithSwiftEmailer
@@ -18,9 +16,8 @@ trait InteractsWithSwiftEmailer
         if (is_null($this->emailMessage)) {
             throw new RuntimeException('You need to create the message first and chain it.');
         }
-
-        $transport = Swift_SmtpTransport::newInstance(getenv('MAIL_HOST'), getenv('MAIL_PORT'));
-        $mailer = Swift_Mailer::newInstance($transport);
+        
+        $mailer = new Swift_Mailer(new Swift_SmtpTransport(getenv('MAIL_HOST'),getenv('MAIL_PORT')));
 
         if (!$mailer->send($this->emailMessage)) {
             throw new RuntimeException('Can\'t send the Email message');
@@ -38,7 +35,7 @@ trait InteractsWithSwiftEmailer
             throw new RuntimeException('You really need to set the body');
         }
 
-        $this->emailMessage = Swift_Message::newInstance()
+        $this->emailMessage = (new Swift_Message())
             ->setSubject($options['subject'])
             ->setFrom($options['from'])
             ->setCc($options['cc'])

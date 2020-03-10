@@ -13,7 +13,7 @@ trait InteractsWithMailCatcher
     /**
      * Init setup
      */
-    public function setUp() :void
+    public function setUp(): void
     {
         parent::setUp();
         $this->initCatcher();
@@ -48,40 +48,40 @@ trait InteractsWithMailCatcher
      * Assert that First Email's subject contains a string
      *
      * @param        $needle
-     * @param string $description
+     * @param  string  $description
      */
     public function assertEmailFirstSubjectContains($needle, $description = '')
     {
-        $this->assertContains($needle, $this->getEmailFirstMessage()->subject, $description);
+        $this->assertStringContainsString($needle, $this->getEmailFirstMessage()->subject, $description);
     }
 
     /**
      * Assert that Last Email's subject contains a string
      *
      * @param        $needle
-     * @param string $description
+     * @param  string  $description
      */
     public function assertEmailLastSubjectContains($needle, $description = '')
     {
-        $this->assertContains($needle, $this->getEmailLastMessage()->subject, $description);
+        $this->assertStringContainsString($needle, $this->getEmailLastMessage()->subject, $description);
     }
 
     /**
      * Assert that certain Email's subject contains a string
      *
      * @param        $needle
-     * @param string $description
+     * @param  string  $description
      */
     public function assertEmailNthSubjectContains($needle, $nth, $description = '')
     {
-        $this->assertContains($needle, $this->getEmailMessage($nth)->subject, $description);
+        $this->assertStringContainsString($needle, $this->getEmailMessage($nth)->subject, $description);
     }
 
 
     /**
      * Assert that the subject in the first Email is equal to a string
      * @param $expected
-     * @param string $description
+     * @param  string  $description
      */
     public function assertEmailFirstSubjectEquals($expected, $description = '')
     {
@@ -91,7 +91,7 @@ trait InteractsWithMailCatcher
     /**
      * Assert that the subject in the last Email is equal to a string
      * @param $expected
-     * @param string $description
+     * @param  string  $description
      */
     public function assertEmailLastSubjectEquals($expected, $description = '')
     {
@@ -102,7 +102,7 @@ trait InteractsWithMailCatcher
      * Assert that the subject in the Nth Email is equal to a string
      * @param $expected
      * @param $nth
-     * @param string $description
+     * @param  string  $description
      */
     public function assertEmailNthSubjectEquals($expected, $nth, $description = '')
     {
@@ -114,7 +114,7 @@ trait InteractsWithMailCatcher
      * Assert that the subject of an Email is equal to a string
      * @param $expected
      * @param $email
-     * @param string $description
+     * @param  string  $description
      */
     public function assertEmailSubjectEquals($expected, $email, $description = '')
     {
@@ -125,7 +125,7 @@ trait InteractsWithMailCatcher
      * Assert HTML body of First Email contains a certain text
      *
      * @param        $needle
-     * @param string $description
+     * @param  string  $description
      */
     public function assertEmailFirstHtmlContains($needle, $description = '')
     {
@@ -136,7 +136,7 @@ trait InteractsWithMailCatcher
      * Assert HTML body of Last Email contains a certain text
      *
      * @param        $needle
-     * @param string $description
+     * @param  string  $description
      */
     public function assertEmailLastHtmlContains($needle, $description = '')
     {
@@ -149,7 +149,7 @@ trait InteractsWithMailCatcher
      *
      * @param $needle
      * @param $nth
-     * @param string $description
+     * @param  string  $description
      */
     public function assertEmailNthHtmlContains($needle, $nth, $description = '')
     {
@@ -161,19 +161,19 @@ trait InteractsWithMailCatcher
      *
      * @param        $needle
      * @param        $email
-     * @param string $description
+     * @param  string  $description
      */
     public function assertEmailHtmlContains($needle, $email, $description = '')
     {
         $response = $this->mailcatcher->get("/messages/{$email->id}.html");
-        $this->assertContains($needle, (string)$response->getBody(), $description);
+        $this->assertStringContainsString($needle, (string) $response->getBody(), $description);
     }
 
     /**
      * Assert Text body of First Email contains a certain text
      *
      * @param        $needle
-     * @param string $description
+     * @param  string  $description
      */
     public function assertEmailFirstTextContains($needle, $description = '')
     {
@@ -184,7 +184,7 @@ trait InteractsWithMailCatcher
      * Assert Text body of Last Email contains a certain text
      *
      * @param        $needle
-     * @param string $description
+     * @param  string  $description
      */
     public function assertEmailLastTextContains($needle, $description = '')
     {
@@ -196,7 +196,7 @@ trait InteractsWithMailCatcher
      *
      * @param        $needle
      * @param        $nth
-     * @param string $description
+     * @param  string  $description
      */
     public function assertEmailNthTextContains($needle, $nth, $description = '')
     {
@@ -208,12 +208,12 @@ trait InteractsWithMailCatcher
      * Assert Text body of Email contains a certain text
      *
      * @param        $needle
-     * @param string $description
+     * @param  string  $description
      */
     public function assertEmailTextContains($needle, $email, $description = '')
     {
         $response = $this->mailcatcher->get("/messages/{$email->id}.plain");
-        $this->assertContains($needle, (string)$response->getBody(), $description);
+        $this->assertStringContainsString($needle, (string) $response->getBody(), $description);
     }
 
 
@@ -221,7 +221,7 @@ trait InteractsWithMailCatcher
      * Assert that the sender of first Email is equal to a string
      *
      * @param        $expected
-     * @param string $description
+     * @param  string  $description
      */
     public function assertEmailFirstSenderEquals($expected, $description = '')
     {
@@ -232,7 +232,7 @@ trait InteractsWithMailCatcher
      * Assert that the sender of last Email is equal to a string
      *
      * @param        $expected
-     * @param string $description
+     * @param  string  $description
      */
     public function assertEmailLastSenderEquals($expected, $description = '')
     {
@@ -244,7 +244,7 @@ trait InteractsWithMailCatcher
      *
      * @param        $expected
      * @param        $nth
-     * @param string $description
+     * @param  string  $description
      */
     public function assertEmailNthSenderEquals($expected, $nth, $description = '')
     {
@@ -256,11 +256,11 @@ trait InteractsWithMailCatcher
      *
      * @param        $expected
      * @param        $email
-     * @param string $description
+     * @param  string  $description
      */
     public function assertEmailSenderEquals($expected, $email, $description = '')
     {
-        $expected = '<' . $expected . '>';
+        $expected = '<'.$expected.'>';
         $this->assertEquals($expected, $email->sender, $description);
     }
 
@@ -268,7 +268,7 @@ trait InteractsWithMailCatcher
      * Assert that the recipients list of First Email contains a certain one
      *
      * @param        $needle
-     * @param string $description
+     * @param  string  $description
      */
     public function assertEmailFirstRecipientsContain($needle, $description = '')
     {
@@ -279,7 +279,7 @@ trait InteractsWithMailCatcher
      * Assert that the recipients list of Last Email contains a certain one
      *
      * @param        $needle
-     * @param string $description
+     * @param  string  $description
      */
     public function assertEmailLastRecipientsContain($needle, $description = '')
     {
@@ -291,7 +291,7 @@ trait InteractsWithMailCatcher
      *
      * @param        $needle
      * @param        $nth
-     * @param string $description
+     * @param  string  $description
      */
     public function assertEmailNthRecipientsContain($needle, $nth, $description = '')
     {
@@ -303,11 +303,11 @@ trait InteractsWithMailCatcher
      * Assert that the recipients list of Email contains a certain one
      *
      * @param        $needle
-     * @param string $description
+     * @param  string  $description
      */
     public function assertEmailRecipientsContain($needle, $email, $description = '')
     {
-        $needle = '<' . $needle . '>';
+        $needle = '<'.$needle.'>';
         $this->assertContains($needle, $email->recipients, $description);
     }
 
@@ -315,7 +315,7 @@ trait InteractsWithMailCatcher
      * Assert that the cc list of First Mail contains a certain one
      *
      * @param        $needle
-     * @param string $description
+     * @param  string  $description
      */
     public function assertEmailFirstCcContain($needle, $description = '')
     {
@@ -326,7 +326,7 @@ trait InteractsWithMailCatcher
      * Assert that the cc list of Last Mail contains a certain one
      *
      * @param        $needle
-     * @param string $description
+     * @param  string  $description
      */
     public function assertEmailLastCcContain($needle, $description = '')
     {
@@ -338,7 +338,7 @@ trait InteractsWithMailCatcher
      *
      * @param        $needle
      * $param        $nth
-     * @param string $description
+     * @param  string  $description
      */
     public function assertEmailNthCcContain($needle, $nth, $description = '')
     {
@@ -349,11 +349,11 @@ trait InteractsWithMailCatcher
      * Assert that the cc list of Email contains a certain one
      *
      * @param        $needle
-     * @param string $description
+     * @param  string  $description
      */
     public function assertEmailCcContain($needle, $email, $description = '')
     {
-        $needle = '<' . $needle . '>';
+        $needle = '<'.$needle.'>';
         $this->assertContains($needle, $email->recipients, $description);
     }
 
@@ -363,7 +363,7 @@ trait InteractsWithMailCatcher
      * with the bcc address as the recipient.
      *
      * @param        $needle
-     * @param string $description
+     * @param  string  $description
      */
     public function assertEmailFirstBccContain($needle, $description = '')
     {
@@ -375,7 +375,7 @@ trait InteractsWithMailCatcher
      * Assert that the Bcc list of the Last Email contains a certain one
      *
      * @param        $needle
-     * @param string $description
+     * @param  string  $description
      */
     public function assertEmailLastBccContain($needle, $description = '')
     {
@@ -387,7 +387,7 @@ trait InteractsWithMailCatcher
      *
      * @param        $needle
      * @param        $nth
-     * @param string $description
+     * @param  string  $description
      */
     public function assertEmailNthtBccContain($needle, $nth, $description = '')
     {
@@ -398,7 +398,7 @@ trait InteractsWithMailCatcher
      * Assert that the Bcc list of Email contains a certain one
      *
      * @param        $needle
-     * @param string $description
+     * @param  string  $description
      */
     public function assertEmailBccContain($needle, $email, $description = '')
     {
@@ -413,7 +413,7 @@ trait InteractsWithMailCatcher
      */
     private function fetchEmailWithBcc($needle, $messages, $description)
     {
-        $needle = '<' . $needle . '>';
+        $needle = '<'.$needle.'>';
 
         if (empty($messages)) {
             $this->fail("No messages received");
@@ -479,8 +479,12 @@ trait InteractsWithMailCatcher
     /**
      * Abstract methods from PhpUnit
      */
-    abstract public function assertContains($needle, $haystack, string $message = '', bool $ignoreCase = false, bool $checkForObjectIdentity = true, bool $checkForNonObjectIdentity = false):void ;
-    abstract public function assertEquals($expected, $actual, string $message = '', float $delta = 0, int $maxDepth = 10, bool $canonicalize = false, bool $ignoreCase = false):void;
-    abstract public function fail(string $message = ''):void;
-    abstract public function assertNotEmpty($actual, string $message = ''):void;
+    abstract public function assertStringContainsString(string $needle, string $haystack, string $message = ''): void;
+
+    abstract public function assertEquals($expected, $actual, string $message = ''): void;
+
+    abstract public function fail(string $message = ''): void;
+
+    abstract public function assertNotEmpty($actual, string $message = ''): void;
+
 }
