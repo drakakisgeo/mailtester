@@ -308,7 +308,7 @@ trait InteractsWithMailCatcher
     public function assertEmailRecipientsContain($needle, $email, $description = '')
     {
         $needle = '<'.$needle.'>';
-        $this->assertContains($needle, $email->recipients, $description);
+        $this->assertTrue(in_array($needle,$email->recipients),$description);
     }
 
     /**
@@ -354,7 +354,7 @@ trait InteractsWithMailCatcher
     public function assertEmailCcContain($needle, $email, $description = '')
     {
         $needle = '<'.$needle.'>';
-        $this->assertContains($needle, $email->recipients, $description);
+        $this->assertTrue(in_array($needle,$email->recipients),$description);
     }
 
     /**
@@ -402,7 +402,7 @@ trait InteractsWithMailCatcher
      */
     public function assertEmailBccContain($needle, $email, $description = '')
     {
-        $this->assertContains($needle, $email->recipients, $description);
+        $this->assertTrue(in_array($needle,$email->recipients),$description);
     }
 
     /**

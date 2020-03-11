@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="Drakakisgeo\Mailtester\MailCatcherTest" file="/var/www/mailtester/tests/MailCatcherTest.php" tests="16" assertions="30" errors="0" warnings="0" failures="0" skipped="0" time="2.862873">
+    <testcase name="EmailFoundInInbox" class="Drakakisgeo\Mailtester\MailCatcherTest" classname="Drakakisgeo.Mailtester.MailCatcherTest" file="/var/www/mailtester/tests/MailCatcherTest.php" line="12" assertions="1" time="0.216002"/>
+    <testcase name="CleanMessagesClearsTheInbox" class="Drakakisgeo\Mailtester\MailCatcherTest" classname="Drakakisgeo.Mailtester.MailCatcherTest" file="/var/www/mailtester/tests/MailCatcherTest.php" line="20" assertions="1" time="0.064263"/>
+    <testcase name="getAllMessagesFromInbox" class="Drakakisgeo\Mailtester\MailCatcherTest" classname="Drakakisgeo.Mailtester.MailCatcherTest" file="/var/www/mailtester/tests/MailCatcherTest.php" line="29" assertions="1" time="0.172942"/>
+    <testcase name="canGrabOnlyLastEmailFromInbox" class="Drakakisgeo\Mailtester\MailCatcherTest" classname="Drakakisgeo.Mailtester.MailCatcherTest" file="/var/www/mailtester/tests/MailCatcherTest.php" line="40" assertions="1" time="0.125103"/>
+    <testcase name="canGrabOnlyFirstEmailFromInbox" class="Drakakisgeo\Mailtester\MailCatcherTest" classname="Drakakisgeo.Mailtester.MailCatcherTest" file="/var/www/mailtester/tests/MailCatcherTest.php" line="50" assertions="1" time="0.151149"/>
+    <testcase name="canGrabCertainNthEmailFromInbox" class="Drakakisgeo\Mailtester\MailCatcherTest" classname="Drakakisgeo.Mailtester.MailCatcherTest" file="/var/www/mailtester/tests/MailCatcherTest.php" line="60" assertions="1" time="0.217107"/>
+    <testcase name="firstEmailSubjectContainsString" class="Drakakisgeo\Mailtester\MailCatcherTest" classname="Drakakisgeo.Mailtester.MailCatcherTest" file="/var/www/mailtester/tests/MailCatcherTest.php" line="72" assertions="1" time="0.161292"/>
+    <testcase name="lastEmailSubjectContainsString" class="Drakakisgeo\Mailtester\MailCatcherTest" classname="Drakakisgeo.Mailtester.MailCatcherTest" file="/var/www/mailtester/tests/MailCatcherTest.php" line="82" assertions="1" time="0.167892"/>
+    <testcase name="nthEmailSubjectContainsString" class="Drakakisgeo\Mailtester\MailCatcherTest" classname="Drakakisgeo.Mailtester.MailCatcherTest" file="/var/www/mailtester/tests/MailCatcherTest.php" line="92" assertions="1" time="0.213686"/>
+    <testcase name="EmailSubjectIsEqualWithString" class="Drakakisgeo\Mailtester\MailCatcherTest" classname="Drakakisgeo.Mailtester.MailCatcherTest" file="/var/www/mailtester/tests/MailCatcherTest.php" line="103" assertions="3" time="0.214058"/>
+    <testcase name="EmailHtmlBodyContainsString" class="Drakakisgeo\Mailtester\MailCatcherTest" classname="Drakakisgeo.Mailtester.MailCatcherTest" file="/var/www/mailtester/tests/MailCatcherTest.php" line="116" assertions="3" time="0.175598"/>
+    <testcase name="EmailTextBodyContainsString" class="Drakakisgeo\Mailtester\MailCatcherTest" classname="Drakakisgeo.Mailtester.MailCatcherTest" file="/var/www/mailtester/tests/MailCatcherTest.php" line="129" assertions="3" time="0.178045"/>
+    <testcase name="emailSenderIsEqualToString" class="Drakakisgeo\Mailtester\MailCatcherTest" classname="Drakakisgeo.Mailtester.MailCatcherTest" file="/var/www/mailtester/tests/MailCatcherTest.php" line="154" assertions="3" time="0.191773"/>
+    <testcase name="emailRecipientContainsString" class="Drakakisgeo\Mailtester\MailCatcherTest" classname="Drakakisgeo.Mailtester.MailCatcherTest" file="/var/www/mailtester/tests/MailCatcherTest.php" line="167" assertions="3" time="0.156735"/>
+    <testcase name="emailCcContainsEmail" class="Drakakisgeo\Mailtester\MailCatcherTest" classname="Drakakisgeo.Mailtester.MailCatcherTest" file="/var/www/mailtester/tests/MailCatcherTest.php" line="180" assertions="3" time="0.152023"/>
+    <testcase name="emailBccContainsEmail" class="Drakakisgeo\Mailtester\MailCatcherTest" classname="Drakakisgeo.Mailtester.MailCatcherTest" file="/var/www/mailtester/tests/MailCatcherTest.php" line="193" assertions="3" time="0.305205"/>
+  </testsuite>
+</testsuites>
