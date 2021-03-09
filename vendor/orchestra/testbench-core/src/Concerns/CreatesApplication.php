@@ -5,10 +5,20 @@ namespace Orchestra\Testbench\Concerns;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Facade;
-use PHPUnit\Framework\TestCase;
+use Orchestra\Testbench\Foundation\PackageManifest;
 
 trait CreatesApplication
 {
+    /**
+     * Ignore package discovery from.
+     *
+     * @return array
+     */
+    public function ignorePackageDiscoveriesFrom()
+    {
+        return ['*'];
+    }
+
     /**
      * Get application timezone.
      *
@@ -212,11 +222,13 @@ trait CreatesApplication
      */
     protected function resolveApplication()
     {
-        return \tap(new Application($this->getBasePath()), static function ($app) {
+        return \tap(new Application($this->getBasePath()), function ($app) {
             $app->bind(
                 'Illuminate\Foundation\Bootstrap\LoadConfiguration',
                 'Orchestra\Testbench\Bootstrap\LoadConfiguration'
             );
+
+            PackageManifest::swap($app, $this);
         });
     }
 
@@ -229,6 +241,10 @@ trait CreatesApplication
      */
     protected function resolveApplicationConfiguration($app)
     {
+        if (\property_exists($this, 'loadEnvironmentVariables') && $this->loadEnvironmentVariables === true) {
+            $app->make('Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables')->bootstrap($app);
+        }
+
         $app->make('Illuminate\Foundation\Bootstrap\LoadConfiguration')->bootstrap($app);
 
         \tap($this->getApplicationTimezone($app), static function ($timezone) {
@@ -306,17 +322,12 @@ trait CreatesApplication
         $app->make('Illuminate\Foundation\Bootstrap\SetRequestForConsole')->bootstrap($app);
         $app->make('Illuminate\Foundation\Bootstrap\RegisterProviders')->bootstrap($app);
 
-        if ($this instanceof TestCase) {
-            Collection::make($this->getAnnotations())->each(function ($location) use ($app) {
-                Collection::make($location['environment-setup'] ?? [])
-                    ->filter(function ($method) {
-                        return ! \is_null($method) && \method_exists($this, $method);
-                    })->each(function ($method) use ($app) {
-                        $this->{$method}($app);
-                    });
-            });
+        if (\method_exists($this, 'parseTestMethodAnnotations')) {
+            $this->parseTestMethodAnnotations($app, 'environment-setup');
+            $this->parseTestMethodAnnotations($app, 'define-env');
         }
 
+        $this->defineEnvironment($app);
         $this->getEnvironmentSetUp($app);
 
         $app->make('Illuminate\Foundation\Bootstrap\BootProviders')->bootstrap($app);
@@ -327,10 +338,14 @@ trait CreatesApplication
 
         $app->make('Illuminate\Contracts\Console\Kernel')->bootstrap();
 
-        $app['router']->getRoutes()->refreshNameLookups();
-
-        $app->resolving('url', static function ($url, $app) {
+        $refreshNameLookups = static function ($app) {
             $app['router']->getRoutes()->refreshNameLookups();
+        };
+
+        $refreshNameLookups($app);
+
+        $app->resolving('url', static function ($url, $app) use ($refreshNameLookups) {
+            $refreshNameLookups($app);
         });
     }
 
@@ -349,9 +364,24 @@ trait CreatesApplication
     /**
      * Define environment setup.
      *
-     * @param  \Illuminate\Foundation\Application   $app
+     * @param  \Illuminate\Foundation\Application  $app
      *
      * @return void
      */
-    abstract protected function getEnvironmentSetUp($app);
+    protected function defineEnvironment($app)
+    {
+        // Define environment.
+    }
+
+    /**
+     * Define environment setup.
+     *
+     * @param  \Illuminate\Foundation\Application  $app
+     *
+     * @return void
+     */
+    protected function getEnvironmentSetUp($app)
+    {
+        // Define your environment setup.
+    }
 }

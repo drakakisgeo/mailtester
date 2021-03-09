@@ -547,8 +547,12 @@ class Arr
 
         $keys = explode('.', $key);
 
-        while (count($keys) > 1) {
-            $key = array_shift($keys);
+        foreach ($keys as $i => $key) {
+            if (count($keys) === 1) {
+                break;
+            }
+
+            unset($keys[$i]);
 
             // If the key doesn't exist at this depth, we will just create an empty array
             // to hold the next value, allowing us to create the arrays to hold final
@@ -628,7 +632,7 @@ class Arr
      */
     public static function query($array)
     {
-        return http_build_query($array, null, '&', PHP_QUERY_RFC3986);
+        return http_build_query($array, '', '&', PHP_QUERY_RFC3986);
     }
 
     /**

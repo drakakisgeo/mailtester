@@ -11,6 +11,8 @@
 
 namespace Symfony\Component\HttpKernel;
 
+use Symfony\Component\HttpFoundation\Request;
+
 /**
  * Signs URIs.
  *
@@ -78,6 +80,14 @@ class UriSigner
         return hash_equals($this->computeHash($this->buildUrl($url, $params)), $hash);
     }
 
+    public function checkRequest(Request $request): bool
+    {
+        $qs = ($qs = $request->server->get('QUERY_STRING')) ? '?'.$qs : '';
+
+        // we cannot use $request->getUri() here as we want to work with the original URI (no query string reordering)
+        return $this->check($request->getSchemeAndHttpHost().$request->getBaseUrl().$request->getPathInfo().$qs);
+    }
+
     private function computeHash(string $uri): string
     {
         return base64_encode(hash_hmac('sha256', $uri, $this->secret, true));
@@ -85,16 +95,16 @@ class UriSigner
 
     private function buildUrl(array $url, array $params = []): string
     {
-        ksort($params, SORT_STRING);
+        ksort($params, \SORT_STRING);
         $url['query'] = http_build_query($params, '', '&');
 
         $scheme = isset($url['scheme']) ? $url['scheme'].'://' : '';
-        $host = isset($url['host']) ? $url['host'] : '';
+        $host = $url['host'] ?? '';
         $port = isset($url['port']) ? ':'.$url['port'] : '';
-        $user = isset($url['user']) ? $url['user'] : '';
+        $user = $url['user'] ?? '';
         $pass = isset($url['pass']) ? ':'.$url['pass'] : '';
         $pass = ($user || $pass) ? "$pass@" : '';
-        $path = isset($url['path']) ? $url['path'] : '';
+        $path = $url['path'] ?? '';
         $query = isset($url['query']) && $url['query'] ? '?'.$url['query'] : '';
         $fragment = isset($url['fragment']) ? '#'.$url['fragment'] : '';
 
